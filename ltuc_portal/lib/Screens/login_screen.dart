@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ltuc_portal/Widgets/defualt_formField.dart';
+import 'package:ltuc_portal/Widgets/default_formField.dart';
+import 'package:ltuc_portal/Widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -64,19 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey.shade700,
-                fixedSize: const Size(200, 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Login",
-              ),
-            ),
+            defaultButton(text: "Login", function: () {}),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
