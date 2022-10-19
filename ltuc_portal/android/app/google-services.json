@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "958597756147",
+    "project_id": "ltuc-portaldb",
+    "storage_bucket": "ltuc-portaldb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958597756147:android:be18e472d288d6a7fbb386",
+        "android_client_info": {
+          "package_name": "com.example.ltuc_portal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958597756147-6qmg1b4b2do5a2t6mp0jp5md209k5o87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB93sU0UoWaE4saGvwDBJfms4atXPV93I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958597756147-6qmg1b4b2do5a2t6mp0jp5md209k5o87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
