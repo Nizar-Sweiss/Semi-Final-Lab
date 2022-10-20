@@ -108,7 +108,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signInAuth() async {
     print("signInAuth Working");
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+    if (passwordController.text.isEmpty || emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something went wrong...",
+          ),
+        ),
+      );
+    } else {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    }
   }
 }

@@ -33,6 +33,10 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.active) {
           return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text("Something went wrong ! "),
+          );
         }
         final user = snapshot.data;
         return MaterialApp(
