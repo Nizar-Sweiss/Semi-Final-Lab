@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DefaultButton extends StatefulWidget {
   final String label;
-  final Function onTap;
+  final Function()? onTap;
   final Color? color;
   final double? width;
   final double? height;
@@ -32,7 +32,7 @@ class _DefaultButtonState extends State<DefaultButton> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      onPressed: () => widget.onTap,
+      onPressed: widget.onTap,
       child: Text(
         widget.label,
       ),

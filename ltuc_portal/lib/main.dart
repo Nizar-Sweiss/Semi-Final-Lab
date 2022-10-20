@@ -1,11 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:ltuc_portal/Screens/home_screen.dart';
+import 'utility/firebase_options.dart';
 import 'screens/screens.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
+//...
 }
 
 // Future<void> main() async {
@@ -21,9 +28,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginScreen(),
-    );
+    return StreamBuilder<Object>(
+        stream: null,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen();
+          } else {
+            return LoginScreen();
+          }
+        });
+
     // return StreamBuilder(
     //   stream: FirebaseAuth.instance.authStateChanges(),
     //   builder: (context, snapshot) {
