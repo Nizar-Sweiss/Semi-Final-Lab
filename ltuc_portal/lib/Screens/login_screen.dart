@@ -1,11 +1,6 @@
-import 'dart:ui';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ltuc_portal/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
-import 'package:ltuc_portal/utility/firebase_references.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,28 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 204,
-                child: Row(
-                  children: const [
-                    Icon(
-                      FontAwesomeIcons.noteSticky,
-                      color: Colors.yellow,
-                      size: 50,
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      "Portal",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 50,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 15),
-              const SizedBox(height: 100),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
@@ -67,10 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               DefaultButton(
-                  label: "Login",
-                  color: Colors.black,
-                  width: 250,
-                  onTap: signInAuth),
+                label: "Login",
+                onTap: signInAuth,
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -103,22 +75,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  testa() {
-    return print("On Tap Activated ");
-  }
-
   Future signInAuth() async {
-    print("signInAuth Working");
-
-    showDialog(
-        context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()),
-        barrierDismissible: false);
     try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false,
+      );
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-    } on FirebaseAuthException catch (e) {
-      print(e);
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -127,7 +96,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     }
-    //  navigatorKey.currentState!.popUntil((route)=>route)
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

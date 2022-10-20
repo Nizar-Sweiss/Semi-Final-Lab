@@ -1,7 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ltuc_portal/widgets/widgets.dart';
 
 List<String> images = [
   "images/LTUC_Slider_1.png",
