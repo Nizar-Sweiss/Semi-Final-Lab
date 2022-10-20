@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: "Login",
                   color: Colors.black,
                   width: 250,
-                  onTap: testa),
+                  onTap: signInAuth),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -103,10 +103,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   testa() {
-    return print("object");
+    return print("On Tap Activated ");
   }
 
   Future signInAuth() async {
+    print("signInAuth Working");
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
   }

@@ -28,40 +28,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Object>(
-        stream: null,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return HomeScreen();
-          } else {
-            return LoginScreen();
-          }
-        });
-
-    // return StreamBuilder(
-    //   stream: FirebaseAuth.instance.authStateChanges(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState != ConnectionState.active) {
-    //       return const Center(child: CircularProgressIndicator());
-    //     }
-    //     final user = snapshot.data;
-    //     return MaterialApp(
-    //       routes: {
-    //         // "SignUp": (context) => const SignUpScreen(),
-    //         // "Store": (context) => const HomeScreen()
-    //       },
-    //       debugShowCheckedModeBanner: false,
-    //       home: snapshot.connectionState != ConnectionState.active
-    //           ? Center(
-    //               child: CircularProgressIndicator(
-    //                 backgroundColor: Colors.grey.shade900,
-    //               ),
-    //             )
-    //           : user != null
-    //               ? const LoginScreen()
-    //               : const LoginScreen(),
-    //     );
-    //   },
-    // );
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.active) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final user = snapshot.data;
+        return MaterialApp(
+          routes: {
+            // "SignUp": (context) => const SignUpScreen(),
+            "Store": (context) => const HomeScreen()
+          },
+          debugShowCheckedModeBanner: false,
+          home: snapshot.connectionState != ConnectionState.active
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.grey.shade900,
+                  ),
+                )
+              : user != null
+                  ? const LoginScreen()
+                  : const HomeScreen(),
+        );
+      },
+    );
   }
 }
