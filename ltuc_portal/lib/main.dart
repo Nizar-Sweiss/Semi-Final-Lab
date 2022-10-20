@@ -1,34 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ltuc_portal/Screens/home_screen.dart';
-import 'utility/firebase_options.dart';
-import 'screens/screens.dart';
+import 'package:ltuc_portal/screens/screens.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
+/// `main()` is the entry point of the app.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  runApp(MaterialApp(
-    navigatorKey: navigatorKey,
-    home: MyApp(),
-  ));
-
-//...
+  runApp(const MyApp());
 }
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-//   // Ideal time to initialize
-//   //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-//   runApp(const MyApp());
-// }
-
+/// If the user is logged in, show the HomeScreen, otherwise show the LoginScreen
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -36,23 +21,16 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.active) {
           return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text("Something went wrong ! "),
-          );
         }
         final user = snapshot.data;
         return MaterialApp(
-          routes: {
-            // "SignUp": (context) => const SignUpScreen(),
-            "Store": (context) => const HomeScreen()
-          },
           debugShowCheckedModeBanner: false,
+          routes: {
+            "HomeScreen": (context) => const HomeScreen(),
+          },
           home: snapshot.connectionState != ConnectionState.active
-              ? Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.grey.shade900,
-                  ),
+              ? const Center(
+                  child: CircularProgressIndicator(),
                 )
               : user != null
                   ? const HomeScreen()

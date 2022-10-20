@@ -15,14 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(actions: [
         TextButton(
           onPressed: () => FirebaseAuth.instance.signOut(),
-          child: Icon(
+          child: const Icon(
             Icons.logout_outlined,
-            color: Color.fromARGB(237, 129, 5, 5),
+            color: Colors.white,
             size: 36.0,
           ),
         )
       ]),
-      body: Container(child: Text("HOME ")),
+      body: const Text("HOME"),
     );
   }
 }
