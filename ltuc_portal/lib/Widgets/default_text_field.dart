@@ -34,7 +34,6 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
           hintStyle: const TextStyle(
             color: Color.fromARGB(255, 0, 0, 0),
           ),
-          border: const OutlineInputBorder(),
         ),
       ),
     );
