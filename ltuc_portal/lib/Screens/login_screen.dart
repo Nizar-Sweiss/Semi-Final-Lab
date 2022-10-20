@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/screens/screens.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -40,8 +40,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               DefaultButton(
-                label: "Login",
-                onTap: signInAuth,
+                  label: "Login",
+                  color: Colors.black,
+                  width: 250,
+                  onTap: signInAuth),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ForgotPassword(),
+                  ),
+                ),
+                child: const Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               Row(
