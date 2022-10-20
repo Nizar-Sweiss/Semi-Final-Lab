@@ -5,13 +5,16 @@ import 'package:ltuc_portal/Screens/home_screen.dart';
 import 'utility/firebase_options.dart';
 import 'screens/screens.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(MaterialApp(
+    navigatorKey: navigatorKey,
     home: MyApp(),
   ));
+
 //...
 }
 

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ltuc_portal/main.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 import 'package:ltuc_portal/utility/firebase_references.dart';
 
@@ -108,7 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signInAuth() async {
     print("signInAuth Working");
-    if (passwordController.text.isEmpty || emailController.text.isEmpty) {
+
+    showDialog(
+        context: context,
+        builder: (context) => Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -116,9 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       );
-    } else {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
     }
+    //  navigatorKey.currentState!.popUntil((route)=>route)
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
