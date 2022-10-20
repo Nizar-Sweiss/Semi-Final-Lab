@@ -40,10 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               DefaultButton(
-                  label: "Login",
-                  color: Colors.black,
-                  width: 250,
-                  onTap: signInAuth),
+                label: "Login",
+                onTap: signInAuth,
+              ),
               GestureDetector(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -71,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "SignUp");
+                      //Navigator.pushNamed(context, "SignUp");
                     },
                     child: const Text(
                       "Sign-up",
@@ -95,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       showDialog(
         context: context,
-        builder: (context) => const Center(child: CircularProgressIndicator()),
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
         barrierDismissible: false,
       );
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -103,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text,
       );
     } on FirebaseAuthException {
-      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -111,6 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       );
+    } finally {
+      Navigator.pop(context);
     }
   }
 }
