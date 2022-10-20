@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,41 +15,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 200,
-              child: Row(
-                children: const [
-                  Icon(
-                    FontAwesomeIcons.noteSticky,
-                    color: Colors.yellow,
-                    size: 50,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    "Noty",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
-            const Text(
-              "The number #1 tool for personal notes!",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(height: 100),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: Column(
@@ -75,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text(
                   "Don't Have account? ",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
                 TextButton(
@@ -85,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text(
                     "Sign-up",
                     style: TextStyle(
-                      color: Colors.yellow,
+                      color: Colors.blue,
                     ),
                   ),
                 )

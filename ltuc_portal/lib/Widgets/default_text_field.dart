@@ -21,18 +21,18 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
       child: TextFormField(
         controller: widget.controller,
         style: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
         ),
         decoration: InputDecoration(
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: Colors.blue),
           ),
           hintText: widget.textHint,
           hintStyle: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Colors.black,
           ),
           border: const OutlineInputBorder(),
         ),
