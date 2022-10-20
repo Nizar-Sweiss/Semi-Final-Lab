@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ltuc_portal/Screens/screens.dart';
 import 'package:ltuc_portal/main.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
-import 'package:ltuc_portal/utility/firebase_references.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,6 +71,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.black,
                   width: 250,
                   onTap: signInAuth),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ForgotPassword())),
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
