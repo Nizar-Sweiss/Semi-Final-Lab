@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
                   ),
                 )
               : user != null
-                  ? const LoginScreen()
-                  : const HomeScreen(),
+                  ? const HomeScreen()
+                  : const LoginScreen(),
         );
       },
     );
