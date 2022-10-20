@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
-import 'package:ltuc_portal/screens/screens.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ltuc_portal/utility/google_provider.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -21,6 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -72,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-      Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
