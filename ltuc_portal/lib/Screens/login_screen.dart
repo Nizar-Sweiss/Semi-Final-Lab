@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ltuc_portal/Screens/screens.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
-import 'package:ltuc_portal/screens/screens.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:ltuc_portal/utility/google_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      //Navigator.pushNamed(context, "SignUp");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpScreen()),
+                      );
                     },
                     child: const Text(
                       "Sign-up",
