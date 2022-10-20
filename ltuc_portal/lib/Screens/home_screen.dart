@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +24,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         )
       ]),
-      body: const Text("HOME"),
+      body: Column(
+        children: [
+          Text(auth.currentUser?.uid.toString() ?? "test"),
+          const Expanded(
+            child: NewsFeedWidget(),
+          ),
+          IconButton(
+            onPressed: () {
+              createOrUpdate(context);
+            },
+            icon: const Icon(
+              Icons.add,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

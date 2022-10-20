@@ -12,13 +12,10 @@ class GoogleSignInProvider extends ChangeNotifier {
     final googleUser = await googleSignIn.signIn();
     if (googleUser == null) return;
     _user = googleUser;
-
     final googleAuth = await googleUser.authentication;
     final credentail = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
     await FirebaseAuth.instance.signInWithCredential(credentail);
-
     notifyListeners();
   }
 }
