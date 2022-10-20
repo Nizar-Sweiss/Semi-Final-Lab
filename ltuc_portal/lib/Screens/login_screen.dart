@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/Widgets/widgets.dart';
 import 'package:ltuc_portal/screens/screens.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ltuc_portal/utility/google_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,6 +61,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              Container(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text("Or Sign in with ")),
+              GoogleButton(onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.googleLogin();
+              }),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
