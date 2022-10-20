@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ltuc_portal/Widgets/default_formField.dart';
-import 'package:ltuc_portal/Widgets/widgets.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -57,15 +55,19 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: Column(
                 children: [
-                  defaultFormField(
-                      textHint: "E-mail", controller: emailController),
-                  defaultFormField(
-                      textHint: "Password", controller: passwordController),
+                  DefaultFormField(
+                    textHint: "E-mail",
+                    controller: emailController,
+                  ),
+                  DefaultFormField(
+                    textHint: "Password",
+                    controller: passwordController,
+                  ),
                   const SizedBox(height: 20),
                 ],
               ),
             ),
-            defaultButton(text: "Login", function: () {}),
+            DefaultButton(label: "Login", onTap: () {}),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
