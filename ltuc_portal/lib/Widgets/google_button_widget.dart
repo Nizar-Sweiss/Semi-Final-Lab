@@ -28,13 +28,12 @@ class GoogleButton extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              "https://firebasestorage.googleapis.com/v0/b/flutterbricks-public.appspot.com/o/crypto%2Fsearch%20(2).png?alt=media&token=24a918f7-3564-4290-b7e4-08ff54b3c94c",
-              width: 20,
+          children: const [
+            Image(
+              image: AssetImage('assets/images/google_logo.png'),
             ),
-            const SizedBox(width: 10),
-            const Text(
+            SizedBox(width: 10),
+            Text(
               "Google",
               style: TextStyle(
                 color: Colors.black,

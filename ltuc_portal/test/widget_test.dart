@@ -1,30 +1,48 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// ignore_for_file: non_constant_identifier_names, unused_local_variable, constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:ltuc_portal/main.dart';
+import 'package:ltuc_portal/Screens/login_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group(
+    "test Chips Auto Fillin, in LogInScreen",
+    () {
+      late Finder clear_ChipKey;
+      late Finder test_ChipKey;
+      late Finder email_TextFieldKey;
+      late Finder pass_TextFieldKey;
+      const String email_TextHint = "E-mail";
+      const String pass_TextHint = "Password";
+      setUp(() {
+        clear_ChipKey = find.byKey(const Key("clear_chip"));
+        test_ChipKey = find.byKey(const Key("test_chip"));
+        email_TextFieldKey = find.byKey(const Key("pass_textfield"));
+        pass_TextFieldKey = find.byKey(const Key("email_textfield"));
+      });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      testWidgets(
+        "successful test Chip, it fills both email & pass TextFields",
+        (tester) async {
+          // Build our app and trigger a frame.
+          await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+          // Verify that our TextFields start empty.
+          expect(find.text(email_TextHint), findsOneWidget);
+          expect(find.text(pass_TextHint), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+          // Tap the Text Chip and trigger a frame.
+          await tester.tap(test_ChipKey);
+          await tester.pump();
+
+          // Verify that our Screen has many of these texts;
+          // because Chips and TextFields have the same texts.
+          // In this textWidget (sub-group), we are only expecting 2 of these texts.
+          // However, sometimes we might be expecting only one text.
+          expect(find.text("test@test.com"), findsNWidgets(2));
+          expect(find.text("test1234"), findsOneWidget);
+        },
+      );
+    },
+  );
 }
