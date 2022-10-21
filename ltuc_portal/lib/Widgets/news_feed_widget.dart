@@ -26,6 +26,13 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
                   streamSnapshot.data!.docs[index];
               return Hero(
                 tag: documentSnapshot.id,
+                flightShuttleBuilder: (flightContext, animation, direction,
+                    fromContext, toContext) {
+                  return const Icon(
+                    Icons.newspaper,
+                    size: 150.0,
+                  );
+                },
                 child: GestureDetector(
                   child: Container(
                     height: 200,
