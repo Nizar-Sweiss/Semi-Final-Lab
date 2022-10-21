@@ -1,14 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ltuc_portal/screens/screens.dart';
+import 'package:ltuc_portal/utility/firebase_references.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
 
 class AuthService {
+  /// This function takes a User object as a parameter, and returns a Future that completes when the
+  /// user data has been updated.
+  updateUserData(User user) async {
+    DocumentReference document = users.doc(user.uid);
+    return document.set(
+      {
+        "uid": user.uid,
+        "email": user.email,
+        "displayName": user.displayName ?? "test",
+      },
+    );
+  }
 
-/// signs out the user
+  /// signs out the user
   signOut() {
     auth.signOut();
   }

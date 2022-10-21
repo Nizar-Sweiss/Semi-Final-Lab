@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ltuc_portal/Widgets/widgets.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -65,11 +66,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         barrierDismissible: false,
       );
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-
+      AuthService().updateUserData(userCredential.user!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
