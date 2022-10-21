@@ -11,9 +11,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  var displayNameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var userNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     DefaultFormField(
-                      textHint: "E-mail",
-                      controller: emailController,
+                      textHint: "Full name",
+                      controller: displayNameController,
                     ),
                     DefaultFormField(
-                      textHint: "User Name",
-                      controller: userNameController,
+                      textHint: "E-mail",
+                      controller: emailController,
                     ),
                     DefaultFormField(
                       textHint: "Password",
@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-      AuthService().updateUserData(userCredential.user!);
+      AuthService().updateUserData(userCredential.user!, displayNameController.text);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
@@ -79,14 +79,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       );
-    } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something went wrong...",
-          ),
-        ),
-      );
+    } on FirebaseAuthException catch (e) {
+      Utils.errorSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }

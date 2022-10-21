@@ -20,42 +20,42 @@ Future<void> createOrUpdate(context,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DefaultFormField(textHint: "Title", controller: _titleController),
-          const SizedBox(height: 20),
           DefaultFormField(
-              textHint: "Description", controller: _descriptionController),
+            textHint: "Title",
+            controller: _titleController,
+          ),
+          DefaultFormField(
+            textHint: "Description",
+            controller: _descriptionController,
+          ),
           IconButton(
             icon: const Icon(Icons.save),
             iconSize: 20,
             onPressed: () async {
-              final String title = _titleController.text;
-              final String description = _descriptionController.text;
-              if (_titleController.text.isNotEmpty &&
-                  _descriptionController.text.isNotEmpty) {
-                if (action == 'create') {
-                  await news.add(
-                    {
-                      "user": auth.currentUser?.uid,
-                      "title": title,
-                      "description": description,
-                      "createdAt": Timestamp.now().seconds,
-                    },
-                  );
-                }
-                if (action == 'update') {
-                  await news.doc(documentSnapshot!.id).update(
-                    {
-                      "user": auth.currentUser?.uid,
-                      "title": title,
-                      "description": description,
-                      "createdAt": Timestamp.now().seconds,
-                    },
-                  );
-                }
-                _titleController.text = '';
-                _descriptionController.text = '';
-                Navigator.of(context).pop();
+              if (_titleController.text.isEmpty ||
+                  _descriptionController.text.isEmpty) return;
+              if (action == 'create') {
+                await news.add(
+                  {
+                    "user": auth.currentUser?.uid,
+                    "title": _titleController.text,
+                    "description": _descriptionController.text,
+                    "createdAt": Timestamp.now(),
+                    "edited": false,
+                  },
+                );
               }
+              if (action == 'update') {
+                await news.doc(documentSnapshot!.id).update(
+                  {
+                    "title": _titleController.text,
+                    "description": _descriptionController.text,
+                    "edited": true,
+                  },
+                );
+              }
+              _titleController.text = '';
+              _descriptionController.text = '';
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -27,21 +28,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailContr.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Reset Password Email Sent ",
-          ),
-        ),
-      );
+      Utils.errorSnackBar("Reset Password Email Sent ");
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something went wrong ...",
-          ),
-        ),
-      );
+      Utils.errorSnackBar(e.message);
     }
   }
 }
