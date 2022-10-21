@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Screens/screens.dart';
+import 'package:ltuc_portal/Widgets/default_chiplogin.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
@@ -95,6 +96,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   )
+                ],
+              ),
+              Wrap(
+                spacing: 8,
+                alignment: WrapAlignment.spaceEvenly,
+                children: [
+                  DefaultChipLogIn(
+                    email: "",
+                    pass: "",
+                    emailController: emailController,
+                    passwordController: passwordController,
+                    chipLabel: "Clear",
+                  ),
+                  DefaultChipLogIn(
+                    email: "test@test.com",
+                    pass: "test1234",
+                    emailController: emailController,
+                    passwordController: passwordController,
+                  ),
                 ],
               ),
             ],

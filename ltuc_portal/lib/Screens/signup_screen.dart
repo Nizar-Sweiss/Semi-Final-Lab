@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
+import '../utility/utility.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
