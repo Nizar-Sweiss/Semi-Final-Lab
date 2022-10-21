@@ -1,13 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ltuc_portal/screens/screens.dart';
-import 'package:ltuc_portal/utility/utility.dart';
+import 'package:ltuc_portal/utility/firebase_references.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
 
 class AuthService {
+  /// This function takes a User object as a parameter, and returns a Future that completes when the
+  /// user data has been updated.
+  updateUserData(User user, [displayName]) async {
+    DocumentReference document = users.doc(user.uid);
+    return document.set(
+      {
+        "uid": user.uid,
+        "email": user.email,
+        "displayName": user.displayName ?? displayName,
+        "role": 0
+      },
+    );
+  }
+
   /// signs out the user
   signOut() {
     auth.signOut();
@@ -25,7 +40,9 @@ class AuthService {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    return await auth.signInWithCredential(credential);
+    UserCredential userCredential = await auth.signInWithCredential(credential);
+    updateUserData(userCredential.user!);
+    return userCredential;
   }
 
   /// If the user is logged in, show the HomeScreen, otherwise show the LoginScreen
@@ -37,17 +54,13 @@ class AuthService {
           return const Center(child: CircularProgressIndicator());
         }
         final user = snapshot.data;
-        return MaterialApp(
-          scaffoldMessengerKey: Utils.messengerKey,
-          debugShowCheckedModeBanner: false,
-          home: snapshot.connectionState != ConnectionState.active
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : user != null
-                  ? const HomeScreen()
-                  : const LoginScreen(),
-        );
+        return snapshot.connectionState != ConnectionState.active
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : user != null
+                ? const HomeScreen()
+                : const LoginScreen();
       },
     );
   }

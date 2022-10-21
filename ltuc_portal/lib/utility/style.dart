@@ -9,43 +9,23 @@ const TextTheme defaultTextTheme = TextTheme(
   headline1: TextStyle(
     color: black,
     fontWeight: FontWeight.w700,
-    fontSize: 26,
+    fontSize: 19,
   ),
   headline2: TextStyle(
     color: black,
     fontWeight: FontWeight.w700,
-    fontSize: 22,
-  ),
-  headline3: TextStyle(
-    color: black,
-    fontWeight: FontWeight.w700,
-    fontSize: 20,
-  ),
-  headline4: TextStyle(
-    color: black,
-    fontWeight: FontWeight.w700,
-    fontSize: 16,
-  ),
-  headline5: TextStyle(
-    color: black,
-    fontWeight: FontWeight.w700,
-    fontSize: 14,
-  ),
-  headline6: TextStyle(
-    color: black,
-    fontWeight: FontWeight.w700,
-    fontSize: 12,
+    fontSize: 17,
   ),
   bodyText1: TextStyle(
     color: black,
     fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontSize: 20,
     height: 1.5,
   ),
   bodyText2: TextStyle(
     color: black,
     fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontSize: 17,
     height: 1.5,
   ),
   subtitle1: TextStyle(

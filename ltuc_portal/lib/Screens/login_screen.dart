@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.message);
+      Utils.errorSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }

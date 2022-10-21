@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
 class NewsFeedWidget extends StatefulWidget {
@@ -12,6 +13,7 @@ class NewsFeedWidget extends StatefulWidget {
 class _NewsFeedWidgetState extends State<NewsFeedWidget> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return StreamBuilder(
       stream: newsQuery.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -22,21 +24,51 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
               final DocumentSnapshot documentSnapshot =
                   streamSnapshot.data!.docs[index];
               return Container(
-                height: 150,
-                width: 200,
-                margin: const EdgeInsets.all(10),
+                height: 200,
+                margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       documentSnapshot['title'],
+                      style: themeData.textTheme.headline2,
                     ),
-                    Text(
-                      documentSnapshot['description'],
+                    Row(
+                      children: [
+                        FutureBuilder(
+                          future: users.doc(documentSnapshot['user']).get(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(
+                                "${snapshot.data!['displayName']} posted on ",
+                                style: themeData.textTheme.subtitle2,
+                              );
+                            }
+                            return Text(
+                              "Loading...",
+                              style: themeData.textTheme.subtitle2,
+                            );
+                          },
+                        ),
+                        Text(
+                          DateFormat('d LLLL y').add_jm().format(
+                                (documentSnapshot['createdAt']).toDate(),
+                              ),
+                          style: themeData.textTheme.subtitle2,
+                        )
+                      ],
                     ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(documentSnapshot['description'],
+                            style: themeData.textTheme.bodyText1),
+                      ),
+                    )
                   ],
                 ),
               );

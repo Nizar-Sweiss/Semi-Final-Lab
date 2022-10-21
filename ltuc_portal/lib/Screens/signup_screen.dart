@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ltuc_portal/Widgets/widgets.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
 import '../utility/utility.dart';
 
@@ -12,9 +13,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  var displayNameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var userNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     DefaultFormField(
-                      textHint: "E-mail",
-                      controller: emailController,
+                      textHint: "Full name",
+                      controller: displayNameController,
                     ),
                     DefaultFormField(
-                      textHint: "User Name",
-                      controller: userNameController,
+                      textHint: "E-mail",
+                      controller: emailController,
                     ),
                     DefaultFormField(
                       textHint: "Password",
@@ -67,11 +68,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         barrierDismissible: false,
       );
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-
+      AuthService().updateUserData(userCredential.user!, displayNameController.text);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
@@ -81,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
     } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.message);
+      Utils.errorSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }
