@@ -97,6 +97,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
+              Wrap(
+                spacing: 8,
+                alignment: WrapAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    child: const Chip(
+                      label: Text("test@test.com"),
+                    ),
+                    onTap: () {
+                      emailController.text = "test@test.com";
+                      passwordController.text = "test1234";
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
