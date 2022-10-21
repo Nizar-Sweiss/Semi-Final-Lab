@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ltuc_portal/screens/screens.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
 
 class AuthService {
-
-/// signs out the user
+  /// signs out the user
   signOut() {
     auth.signOut();
   }
@@ -38,6 +38,7 @@ class AuthService {
         }
         final user = snapshot.data;
         return MaterialApp(
+          scaffoldMessengerKey: Utils.messengerKey,
           debugShowCheckedModeBanner: false,
           home: snapshot.connectionState != ConnectionState.active
               ? const Center(

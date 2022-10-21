@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
 
+import '../utility/utility.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -78,14 +80,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       );
-    } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something went wrong...",
-          ),
-        ),
-      );
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }
