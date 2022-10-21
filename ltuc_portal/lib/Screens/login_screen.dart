@@ -117,14 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-    } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something went wrong...",
-          ),
-        ),
-      );
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }
