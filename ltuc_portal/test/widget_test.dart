@@ -5,8 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ltuc_portal/Screens/login_screen.dart';
 
 void main() {
-  //  print("### RAMZI     ${email_TextFieldKey}     RAMZI ###");
-
   group(
     "test Chips Auto Fillin, in LogInScreen",
     () {
@@ -24,9 +22,9 @@ void main() {
       });
 
       testWidgets(
-        "successful fill for both email & pass TextFields",
+        "successful test Chip, it fills both email & pass TextFields",
         (tester) async {
-          //   // Build our app and trigger a frame.
+          // Build our app and trigger a frame.
           await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
 
           // Verify that our TextFields start empty.
@@ -42,7 +40,7 @@ void main() {
           // In this textWidget (sub-group), we are only expecting 2 of these texts.
           // However, sometimes we might be expecting only one text.
           expect(find.text("test@test.com"), findsNWidgets(2));
-          expect(find.text("test1234"), findsNWidgets(2));
+          expect(find.text("test1234"), findsOneWidget);
         },
       );
     },
