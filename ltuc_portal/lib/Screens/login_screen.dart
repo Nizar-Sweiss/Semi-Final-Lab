@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Screens/screens.dart';
+import 'package:ltuc_portal/Widgets/default_chiplogin.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
@@ -101,14 +102,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 spacing: 8,
                 alignment: WrapAlignment.spaceEvenly,
                 children: [
-                  InkWell(
-                    child: const Chip(
-                      label: Text("test@test.com"),
-                    ),
-                    onTap: () {
-                      emailController.text = "test@test.com";
-                      passwordController.text = "test1234";
-                    },
+                  DefaultChipLogIn(
+                    email: "",
+                    pass: "",
+                    emailController: emailController,
+                    passwordController: passwordController,
+                    chipLabel: "Clear",
+                  ),
+                  DefaultChipLogIn(
+                    email: "test@test.com",
+                    pass: "test1234",
+                    emailController: emailController,
+                    passwordController: passwordController,
                   ),
                 ],
               ),
