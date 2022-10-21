@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:ltuc_portal/utility/utility.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
 
 class NewsFeedWidget extends StatefulWidget {
   const NewsFeedWidget({super.key});
@@ -31,44 +32,56 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
                   color: Colors.grey.shade300,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
                   children: [
-                    Text(
-                      documentSnapshot['title'],
-                      style: themeData.textTheme.headline2,
+                    Visibility(
+                      visible: false,
+                      child: const Positioned(
+                        top: 0,
+                        right: 0,
+                        child: EditDeleteButtons(),
+                      ),
                     ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FutureBuilder(
-                          future: users.doc(documentSnapshot['user']).get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Text(
-                                "${snapshot.data!['displayName']} posted on ",
-                                style: themeData.textTheme.subtitle2,
-                              );
-                            }
-                            return Text(
-                              "Loading...",
-                              style: themeData.textTheme.subtitle2,
-                            );
-                          },
-                        ),
                         Text(
-                          DateFormat('d LLLL y').add_jm().format(
-                                (documentSnapshot['createdAt']).toDate(),
-                              ),
-                          style: themeData.textTheme.subtitle2,
+                          documentSnapshot['title'],
+                          style: themeData.textTheme.headline2,
+                        ),
+                        Row(
+                          children: [
+                            FutureBuilder(
+                              future: users.doc(documentSnapshot['user']).get(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    "${snapshot.data!['displayName']} posted on ",
+                                    style: themeData.textTheme.subtitle2,
+                                  );
+                                }
+                                return Text(
+                                  "Loading...",
+                                  style: themeData.textTheme.subtitle2,
+                                );
+                              },
+                            ),
+                            Text(
+                              DateFormat('d LLLL y').add_jm().format(
+                                    (documentSnapshot['createdAt']).toDate(),
+                                  ),
+                              style: themeData.textTheme.subtitle2,
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(documentSnapshot['description'],
+                                style: themeData.textTheme.bodyText1),
+                          ),
                         )
                       ],
                     ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Text(documentSnapshot['description'],
-                            style: themeData.textTheme.bodyText1),
-                      ),
-                    )
                   ],
                 ),
               );

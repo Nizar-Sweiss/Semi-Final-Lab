@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Screens/screens.dart';
-import 'package:ltuc_portal/Widgets/default_chiplogin.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
