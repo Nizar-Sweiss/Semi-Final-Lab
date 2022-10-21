@@ -28,12 +28,6 @@ class NewsFeedFullScreen extends StatelessWidget {
           },
         ),
       ),
-      // body: Center(
-      //   child: Hero(
-      // tag: image['id'],
-      // child: Image.network(image['url']),
-      //   ),
-      // ),
     );
   }
 }
