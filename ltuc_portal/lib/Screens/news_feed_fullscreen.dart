@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ltuc_portal/Widgets/news_feed_widget.dart';
@@ -17,9 +19,12 @@ class NewsFeedFullScreen extends StatefulWidget {
 
 class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
   final DataTableSource _data = Marks();
+  final double HORIZONTAL_MARGIN = 80;
+  final double NEWSDATA_HEIGHT = 100;
+  final int ROWS_PER_PAGE = 6;
+  final double COLUMN_SPACING = 20;
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return Scaffold(
       appBar: AppBar(title: Text("doc_ID: ${widget.snapShot.id}")),
       body: Container(
@@ -38,10 +43,10 @@ class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
               size: 150.0,
             );
           },
-          child: Column(
+          child: ListView(
             children: [
               SizedBox(
-                  height: 100,
+                  height: NEWSDATA_HEIGHT,
                   child: newsData(widget.snapShot, Theme.of(context))),
               PaginatedDataTable(
                 source: _data,
@@ -50,9 +55,9 @@ class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
                   DataColumn(label: Text('Name')),
                   DataColumn(label: Text('Score'))
                 ],
-                columnSpacing: 20,
-                horizontalMargin: MediaQuery.of(context).size.width / 8,
-                rowsPerPage: 6,
+                columnSpacing: COLUMN_SPACING,
+                horizontalMargin: HORIZONTAL_MARGIN,
+                rowsPerPage: ROWS_PER_PAGE,
               ),
             ],
           ),
