@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:ltuc_portal/Screens/news_feed_fullscreen.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 
 class NewsFeedWidget extends StatefulWidget {
@@ -23,53 +24,29 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
             itemBuilder: (context, index) {
               final DocumentSnapshot documentSnapshot =
                   streamSnapshot.data!.docs[index];
-              return Container(
-                height: 200,
-                margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      documentSnapshot['title'],
-                      style: themeData.textTheme.headline2,
+              return Hero(
+                tag: documentSnapshot.id,
+                child: GestureDetector(
+                  child: Container(
+                    height: 200,
+                    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    Row(
-                      children: [
-                        FutureBuilder(
-                          future: users.doc(documentSnapshot['user']).get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Text(
-                                "${snapshot.data!['displayName']} posted on ",
-                                style: themeData.textTheme.subtitle2,
-                              );
-                            }
-                            return Text(
-                              "Loading...",
-                              style: themeData.textTheme.subtitle2,
-                            );
-                          },
+                    child: newsData(documentSnapshot, themeData),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        // pass the image data to the detail page
+                        builder: (context) => NewsFeedFullScreen(
+                          snapShot: documentSnapshot,
                         ),
-                        Text(
-                          DateFormat('d LLLL y').add_jm().format(
-                                (documentSnapshot['createdAt']).toDate(),
-                              ),
-                          style: themeData.textTheme.subtitle2,
-                        )
-                      ],
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Text(documentSnapshot['description'],
-                            style: themeData.textTheme.bodyText1),
                       ),
-                    )
-                  ],
+                    );
+                  },
                 ),
               );
             },
@@ -81,4 +58,50 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
       },
     );
   }
+}
+
+Column newsData(
+  DocumentSnapshot<Object?> documentSnapshot,
+  ThemeData themeData,
+) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        documentSnapshot['title'],
+        style: themeData.textTheme.headline2,
+      ),
+      Row(
+        children: [
+          FutureBuilder(
+            future: users.doc(documentSnapshot['user']).get(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  "${snapshot.data!['displayName']} posted on ",
+                  style: themeData.textTheme.subtitle2,
+                );
+              }
+              return Text(
+                "Loading...",
+                style: themeData.textTheme.subtitle2,
+              );
+            },
+          ),
+          Text(
+            DateFormat('d LLLL y').add_jm().format(
+                  (documentSnapshot['createdAt']).toDate(),
+                ),
+            style: themeData.textTheme.subtitle2,
+          )
+        ],
+      ),
+      Expanded(
+        child: SingleChildScrollView(
+          child: Text(documentSnapshot['description'],
+              style: themeData.textTheme.bodyText1),
+        ),
+      )
+    ],
+  );
 }
