@@ -27,7 +27,10 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           /// 1: TEACHER: Post owner EDIT/DELETE
           /// 2: ADMIN: EDIT/DELETE
           double role = snapshot.data!['role'];
-          if (widget.postDocument['user'] == authUser?.uid && role == 1) {
+          if (role == 0) {
+            showWidget = false;
+          } else if (widget.postDocument['user'] == authUser?.uid &&
+              role == 1) {
             showWidget = true;
           } else if (role == 2) {
             showWidget = true;
