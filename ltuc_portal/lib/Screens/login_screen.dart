@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ltuc_portal/Screens/screens.dart';
 import 'package:ltuc_portal/Widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,87 +19,116 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-                child: Column(
-                  children: [
-                    DefaultFormField(
-                      key: const Key("email_textfield"),
-                      textHint: "E-mail",
-                      controller: emailController,
+                child: Material(
+                  elevation: 10,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                              20.0) //                 <--- border radius here
+                          ),
                     ),
-                    DefaultFormField(
-                      key: const Key("pass_textfield"),
-                      textHint: "Password",
-                      controller: passwordController,
-                    ),
-                  ],
-                ),
-              ),
-              DefaultButton(
-                label: "Login",
-                onTap: signInAuth,
-              ),
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ForgotPassword(),
+                    padding: EdgeInsets.all(12),
+                    child: Column(children: [
+                      Lottie.network(
+                          'https://assets8.lottiefiles.com/packages/lf20_8pL7DHZXvo.json',
+                          height: 200),
+                      DefaultFormField(
+                        key: const Key("email_textfield"),
+                        textHint: "E-mail",
+                        controller: emailController,
+                      ),
+                      DefaultFormField(
+                        key: const Key("pass_textfield"),
+                        textHint: "Password",
+                        controller: passwordController,
+                      ),
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ForgotPassword(),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Text(
+                              "forgot your password?",
+                              style: TextStyle(
+                                fontSize: 14,
+                                decoration: TextDecoration.underline,
+                                color: Color.fromARGB(255, 4, 3, 3),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      DefaultButton(
+                        label: "Login",
+                        onTap: signInAuth,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don't Have account? ",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpScreen()),
+                              );
+                            },
+                            child: const Text(
+                              "Sign-up",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 0, 68, 255),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ]),
                   ),
                 ),
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 8),
-                child: const Text("Or Sign in with "),
-              ),
+              Row(children: [
+                Expanded(
+                    child: Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                )),
+                Text("OR"),
+                Expanded(
+                    child: Divider(
+                  thickness: 1,
+                  color: Colors.black,
+                )),
+              ]),
               GoogleButton(
                 onPressed: () {
                   AuthService().signInWithGoogle();
                 },
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't Have account? ",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpScreen()),
-                      );
-                    },
-                    child: const Text(
-                      "Sign-up",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        color: Color.fromARGB(255, 0, 68, 255),
-                      ),
-                    ),
-                  )
-                ],
-              ),
               Wrap(
                 spacing: 8,
                 alignment: WrapAlignment.spaceEvenly,

@@ -11,6 +11,7 @@ class GoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 54,
+      width: 300,
       margin: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(),
