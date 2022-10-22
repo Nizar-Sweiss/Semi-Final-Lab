@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:ltuc_portal/widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
-
-import '../utility/utility.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -20,39 +19,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Color.fromARGB(222, 255, 255, 255),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-                child: Column(
+          child: Material(
+            elevation: 20,
+            borderRadius: const BorderRadius.all(Radius.circular(50)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+                  child: Column(
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.all(12),
+                          child: const Text(
+                            "Sign Up ",
+                            style: TextStyle(fontSize: 30),
+                          )),
+                      DefaultFormField(
+                        textHint: "Full name",
+                        controller: displayNameController,
+                      ),
+                      DefaultFormField(
+                        textHint: "E-mail",
+                        controller: emailController,
+                      ),
+                      DefaultFormField(
+                        textHint: "Password",
+                        controller: passwordController,
+                      ),
+                    ],
+                  ),
+                ),
+                DefaultButton(
+                  label: "Sign Up",
+                  onTap: signInAuth,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    DefaultFormField(
-                      textHint: "Full name",
-                      controller: displayNameController,
+                    const Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
                     ),
-                    DefaultFormField(
-                      textHint: "E-mail",
-                      controller: emailController,
-                    ),
-                    DefaultFormField(
-                      textHint: "Password",
-                      controller: passwordController,
-                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Color.fromARGB(255, 0, 68, 255),
+                        ),
+                      ),
+                    )
                   ],
                 ),
-              ),
-              DefaultButton(
-                label: "Sign Up",
-                onTap: signInAuth,
-              ),
-              const SizedBox(height: 10),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -72,7 +105,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-      AuthService().updateUserData(userCredential.user!, displayNameController.text);
+      AuthService()
+          .updateUserData(userCredential.user!, displayNameController.text);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
