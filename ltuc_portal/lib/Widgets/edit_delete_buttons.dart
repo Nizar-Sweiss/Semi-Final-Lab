@@ -39,7 +39,6 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           return Visibility(
             visible: showWidget,
             child: Container(
-              width: 80,
               decoration: BoxDecoration(
                   color: lightBlue, borderRadius: BorderRadius.circular(15)),
               child: Row(
