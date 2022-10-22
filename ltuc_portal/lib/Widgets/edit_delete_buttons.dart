@@ -26,13 +26,14 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           /// 0: USER: Only READ
           /// 1: TEACHER: Post owner EDIT/DELETE
           /// 2: ADMIN: EDIT/DELETE
-          double role = snapshot.data!['role'];
+          int role = snapshot.data!['role'];
           if (role == 0) {
             showWidget = false;
-          } else if (widget.postDocument['user'] == authUser?.uid &&
-              role == 1) {
+          }
+          if (widget.postDocument['user'] == authUser?.uid && role == 1) {
             showWidget = true;
-          } else if (role == 2) {
+          }
+          if (role == 2) {
             showWidget = true;
           }
           return Visibility(
