@@ -29,7 +29,7 @@ class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
         backgroundColor: white,
         foregroundColor: black,
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(15),
@@ -50,16 +50,23 @@ class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
             ),
           ),
           // ToDo: TO BE MOVED TO A DIFFERENT SCREEN.
-          PaginatedDataTable(
-            source: _data,
-            columns: const [
-              DataColumn(label: Text('ID')),
-              DataColumn(label: Text('Name')),
-              DataColumn(label: Text('Score'))
-            ],
-            columnSpacing: 20,
-            horizontalMargin: MediaQuery.of(context).size.width / 3,
-            rowsPerPage: 6,
+          SingleChildScrollView(
+            child: PaginatedDataTable(
+              source: _data,
+              columns: const [
+                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Name')),
+                DataColumn(label: Text('Score'))
+              ],
+              columnSpacing: 20,
+              horizontalMargin: MediaQuery.of(context).size.width / 4,
+              rowsPerPage: 6,
+            ),
+          ),
+          Container(
+            child: EditDeleteButtons(
+              postDocument: widget.snapShot,
+            ),
           ),
         ],
       ),
