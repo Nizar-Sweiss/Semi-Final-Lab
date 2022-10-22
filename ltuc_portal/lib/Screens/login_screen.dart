@@ -30,10 +30,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     DefaultFormField(
+                      key: const Key("email_textfield"),
                       textHint: "E-mail",
                       controller: emailController,
                     ),
                     DefaultFormField(
+                      key: const Key("pass_textfield"),
                       textHint: "Password",
                       controller: passwordController,
                     ),
@@ -102,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: WrapAlignment.spaceEvenly,
                 children: [
                   DefaultChipLogIn(
+                    key: const Key("clear_chip"),
                     email: "",
                     pass: "",
                     emailController: emailController,
@@ -109,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     chipLabel: "Clear",
                   ),
                   DefaultChipLogIn(
+                    key: const Key("test_chip"),
                     email: "test@test.com",
                     pass: "test1234",
                     emailController: emailController,

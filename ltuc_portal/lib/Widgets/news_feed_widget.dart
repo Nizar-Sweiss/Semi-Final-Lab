@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:ltuc_portal/screens/screens.dart';
+import 'package:ltuc_portal/screens/news_feed_fullscreen.dart';
 import 'package:ltuc_portal/utility/utility.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 
