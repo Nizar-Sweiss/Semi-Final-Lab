@@ -6,7 +6,7 @@ class Marks extends DataTableSource {
       200,
       (index) => {
             "id": index,
-            "title": "Item $index",
+            "title": "name_$index",
             "score": Random().nextInt(101)
           });
 

@@ -87,7 +87,7 @@ Widget newsContainer(
       const SizedBox(
         height: 5,
       ),
-      postInfo(documentSnapshot),
+      postInfo(documentSnapshot: documentSnapshot),
       Expanded(
         child: Text(
           documentSnapshot['description'],
@@ -100,9 +100,10 @@ Widget newsContainer(
 }
 
 Row postInfo(
-  DocumentSnapshot<Object?> documentSnapshot,
-) {
+    {required DocumentSnapshot<Object?> documentSnapshot,
+    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) {
   return Row(
+    mainAxisAlignment: mainAxisAlignment,
     children: [
       FutureBuilder(
         future: users.doc(documentSnapshot['user']).get(),
