@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:ltuc_portal/Screens/news_feed_fullscreen.dart';
+import 'package:ltuc_portal/screens/news_feed_fullscreen.dart';
 import 'package:ltuc_portal/utility/utility.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
 
 class NewsFeedWidget extends StatefulWidget {
   const NewsFeedWidget({super.key});
@@ -24,37 +25,37 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
             itemBuilder: (context, index) {
               final DocumentSnapshot documentSnapshot =
                   streamSnapshot.data!.docs[index];
-              return Hero(
-                tag: documentSnapshot.id,
-                flightShuttleBuilder: (flightContext, animation, direction,
-                    fromContext, toContext) {
-                  return const Icon(
-                    Icons.newspaper,
-                    size: 150.0,
-                  );
-                },
-                child: GestureDetector(
-                  child: Container(
-                    height: 200,
-                    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: newsData(documentSnapshot, themeData),
+              return GestureDetector(
+                child: Container(
+                  height: 200,
+                  margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        // pass the image data to the detail page
-                        builder: (context) => NewsFeedFullScreen(
-                          snapShot: documentSnapshot,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: EditDeleteButtons(
+                          postDocument: documentSnapshot,
                         ),
                       ),
-                    );
-                  },
+                      newsFeedWidget(documentSnapshot, themeData),
+                    ],
+                  ),
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NewsFeedFullScreen(
+                        snapShot: documentSnapshot,
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );
@@ -67,7 +68,7 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
   }
 }
 
-Column newsData(
+Widget newsFeedWidget(
   DocumentSnapshot<Object?> documentSnapshot,
   ThemeData themeData,
 ) {
@@ -100,13 +101,35 @@ Column newsData(
                   (documentSnapshot['createdAt']).toDate(),
                 ),
             style: themeData.textTheme.subtitle2,
+          ),
+          Visibility(
+            visible: documentSnapshot['edited'] ? true : false,
+            child: Row(
+              children: [
+                const Text(
+                  " • ",
+                  style: TextStyle(color: grey),
+                ),
+                const Icon(
+                  Icons.access_time,
+                  color: grey,
+                  size: 14,
+                ),
+                Text(
+                  " Edited",
+                  style: themeData.textTheme.subtitle2,
+                )
+              ],
+            ),
           )
         ],
       ),
       Expanded(
         child: SingleChildScrollView(
-          child: Text(documentSnapshot['description'],
-              style: themeData.textTheme.bodyText1),
+          child: Text(
+            documentSnapshot['description'],
+            style: themeData.textTheme.bodyText1,
+          ),
         ),
       )
     ],

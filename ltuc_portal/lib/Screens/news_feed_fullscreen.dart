@@ -1,9 +1,7 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ltuc_portal/Widgets/news_feed_widget.dart';
-import 'package:ltuc_portal/utility/students_mark.dart';
+import 'package:ltuc_portal/widgets/widgets.dart';
+import 'package:ltuc_portal/utility/utility.dart';
 
 class NewsFeedFullScreen extends StatefulWidget {
   // get the image data that was passed from the main page
@@ -34,33 +32,23 @@ class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Hero(
-          tag: widget.snapShot.id,
-          flightShuttleBuilder:
-              (flightContext, animation, direction, fromContext, toContext) {
-            return const Icon(
-              Icons.newspaper,
-              size: 150.0,
-            );
-          },
-          child: ListView(
-            children: [
-              SizedBox(
-                  height: NEWSDATA_HEIGHT,
-                  child: newsData(widget.snapShot, Theme.of(context))),
-              PaginatedDataTable(
-                source: _data,
-                columns: const [
-                  DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('Score'))
-                ],
-                columnSpacing: COLUMN_SPACING,
-                horizontalMargin: HORIZONTAL_MARGIN,
-                rowsPerPage: ROWS_PER_PAGE,
-              ),
-            ],
-          ),
+        child: ListView(
+          children: [
+            SizedBox(
+                height: NEWSDATA_HEIGHT,
+                child: newsFeedWidget(widget.snapShot, Theme.of(context))),
+            PaginatedDataTable(
+              source: _data,
+              columns: const [
+                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Name')),
+                DataColumn(label: Text('Score'))
+              ],
+              columnSpacing: COLUMN_SPACING,
+              horizontalMargin: HORIZONTAL_MARGIN,
+              rowsPerPage: ROWS_PER_PAGE,
+            ),
+          ],
         ),
       ),
     );
