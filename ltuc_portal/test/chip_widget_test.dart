@@ -93,7 +93,6 @@ void main() {
           validEmail_ShouldBe: email_TextHint,
           validPass_ShouldBe: pass_TextHint,
         );
-
         // ToDo: to build the app in side setUp().
         // Build our app and trigger a frame.
         await widgetTester.pumpWidget(const MaterialApp(home: LoginScreen()));
@@ -138,11 +137,9 @@ void main() {
           await tester.tap(test_ChipKey);
           await tester.pump();
 
-          // Verify that our Screen has many of these texts;
-          // because Chips and TextFields have the same texts.
-          // In this sub-group, we are only expecting 2 of these texts.
-          // However, sometimes we might be expecting only one text.
-          expect(find.text(Valid_Email), findsNWidgets(2));
+          // Verify that our Screen has
+          // one of each Valid Email & Pass.
+          expect(find.text(Valid_Email), findsOneWidget);
           expect(find.text(Valid_Pass), findsOneWidget);
         },
       );
