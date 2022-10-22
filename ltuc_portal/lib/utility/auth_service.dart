@@ -7,6 +7,7 @@ import 'package:ltuc_portal/utility/firebase_references.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
+final authUser = auth.currentUser;
 
 class AuthService {
   /// This function takes a User object as a parameter, and returns a Future that completes when the
