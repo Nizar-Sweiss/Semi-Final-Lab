@@ -6,3 +6,4 @@ export 'package:ltuc_portal/Widgets/google_button_widget.dart';
 export 'package:ltuc_portal/widgets/edit_delete_buttons.dart';
 export 'package:ltuc_portal/widgets/delete_post_alert_widget.dart';
 export 'package:ltuc_portal/Widgets/Chip/default_chip_buttons.dart';
+export 'package:ltuc_portal/widgets/appbar_widget.dart';

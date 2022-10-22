@@ -53,6 +53,7 @@ Future<void> createOrUpdate(context,
                     "edited": true,
                   },
                 );
+                Navigator.pop(context);
               }
               _titleController.text = '';
               _descriptionController.text = '';
