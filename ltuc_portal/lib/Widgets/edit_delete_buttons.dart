@@ -26,32 +26,45 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           /// 0: USER: Only READ
           /// 1: TEACHER: Post owner EDIT/DELETE
           /// 2: ADMIN: EDIT/DELETE
-          double role = snapshot.data!['role'];
+          int role = snapshot.data!['role'];
           if (role == 0) {
             showWidget = false;
-          } else if (widget.postDocument['user'] == authUser?.uid &&
-              role == 1) {
+          }
+          if (widget.postDocument['user'] == authUser?.uid && role == 1) {
             showWidget = true;
-          } else if (role == 2) {
+          }
+          if (role == 2) {
             showWidget = true;
           }
           return Visibility(
             visible: showWidget,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    createOrUpdate(context, widget.postDocument);
-                  },
-                  icon: const Icon(Icons.edit),
-                ),
-                IconButton(
-                  onPressed: () {
-                    deletePost(context, widget.postDocument.id);
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
+            child: Container(
+              width: 80,
+              decoration: BoxDecoration(
+                  color: lightBlue, borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      createOrUpdate(context, widget.postDocument);
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 17,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      deletePost(context, widget.postDocument.id);
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      size: 17,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }

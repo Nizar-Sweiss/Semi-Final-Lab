@@ -14,12 +14,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
     return MaterialApp(
       scaffoldMessengerKey: Utils.messengerKey,
       debugShowCheckedModeBanner: false,
       title: 'LTUC Portal',
-      theme: theme.copyWith(textTheme: defaultTextTheme),
       home: AuthService().handleAuthState(),
     );
   }

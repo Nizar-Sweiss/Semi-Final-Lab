@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 import 'package:ltuc_portal/utility/utility.dart';
@@ -14,22 +13,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        TextButton(
-          onPressed: () => FirebaseAuth.instance.signOut(),
-          child: const Icon(
-            Icons.logout_outlined,
-            color: Colors.white,
-            size: 36.0,
-          ),
-        )
-      ]),
+      backgroundColor: white,
+      appBar: AppBarWidget(context),
       body: Column(
         children: [
-          Text(auth.currentUser?.uid.toString() ?? "test"),
-          const Expanded(
-            child: NewsFeedWidget(),
-          ),
+          // Text(auth.currentUser?.uid.toString() ?? "User not found."),
+          const NewsFeedWidget(),
           IconButton(
             onPressed: () {
               createOrUpdate(context);

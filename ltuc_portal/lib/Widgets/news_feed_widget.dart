@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:ltuc_portal/screens/news_feed_fullscreen.dart';
 import 'package:ltuc_portal/utility/utility.dart';
-import 'package:ltuc_portal/widgets/widgets.dart';
 
 class NewsFeedWidget extends StatefulWidget {
   const NewsFeedWidget({super.key});
@@ -15,49 +14,56 @@ class NewsFeedWidget extends StatefulWidget {
 class _NewsFeedWidgetState extends State<NewsFeedWidget> {
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     return StreamBuilder(
       stream: newsQuery.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
         if (streamSnapshot.hasData) {
-          return ListView.builder(
-            itemCount: streamSnapshot.data!.docs.length,
-            itemBuilder: (context, index) {
-              final DocumentSnapshot documentSnapshot =
-                  streamSnapshot.data!.docs[index];
-              return GestureDetector(
-                child: Container(
-                  height: 200,
-                  margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+          return Expanded(
+            child: ListView.builder(
+              itemCount: streamSnapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot documentSnapshot =
+                    streamSnapshot.data!.docs[index];
+                return GestureDetector(
                   child: Stack(
                     children: [
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: EditDeleteButtons(
-                          postDocument: documentSnapshot,
+                      Container(
+                        height: 150,
+                        margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color:
+                              secondaryColors[index % secondaryColors.length],
+                          borderRadius: BorderRadius.circular(5),
                         ),
+                        child: newsContainer(documentSnapshot),
                       ),
-                      newsFeedWidget(documentSnapshot, themeData),
+                      // Positioned(
+                      //   left: 18,
+                      //   bottom: 15,
+                      //   child: Container(
+                      //     height: 130,
+                      //     width: 4,
+                      //     decoration: BoxDecoration(
+                      //       color: primaryColors[index % primaryColors.length],
+                      //       borderRadius: BorderRadius.circular(5),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => NewsFeedFullScreen(
-                        snapShot: documentSnapshot,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NewsFeedFullScreen(
+                          snapShot: documentSnapshot,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           );
         }
         return const Center(
@@ -68,68 +74,66 @@ class _NewsFeedWidgetState extends State<NewsFeedWidget> {
   }
 }
 
-Widget newsFeedWidget(
+Widget newsContainer(
   DocumentSnapshot<Object?> documentSnapshot,
-  ThemeData themeData,
 ) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
         documentSnapshot['title'],
-        style: themeData.textTheme.headline2,
+        style: defaultTextTheme.headline2,
       ),
-      Row(
-        children: [
-          FutureBuilder(
-            future: users.doc(documentSnapshot['user']).get(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(
-                  "${snapshot.data!['displayName']} posted on ",
-                  style: themeData.textTheme.subtitle2,
-                );
-              }
-              return Text(
-                "Loading...",
-                style: themeData.textTheme.subtitle2,
-              );
-            },
-          ),
-          Text(
-            DateFormat('d LLLL y').add_jm().format(
-                  (documentSnapshot['createdAt']).toDate(),
-                ),
-            style: themeData.textTheme.subtitle2,
-          ),
-          Visibility(
-            visible: documentSnapshot['edited'] ? true : false,
-            child: Row(
-              children: [
-                const Text(
-                  " • ",
-                  style: TextStyle(color: grey),
-                ),
-                const Icon(
-                  Icons.access_time,
-                  color: grey,
-                  size: 14,
-                ),
-                Text(
-                  " Edited",
-                  style: themeData.textTheme.subtitle2,
-                )
-              ],
-            ),
-          )
-        ],
+      const SizedBox(
+        height: 5,
       ),
+      postInfo(documentSnapshot),
       Expanded(
-        child: SingleChildScrollView(
-          child: Text(
-            documentSnapshot['description'],
-            style: themeData.textTheme.bodyText1,
-          ),
+        child: Text(
+          documentSnapshot['description'],
+          style: defaultTextTheme.bodyText1,
+          maxLines: 3,
+        ),
+      )
+    ],
+  );
+}
+
+Row postInfo(
+  DocumentSnapshot<Object?> documentSnapshot,
+) {
+  return Row(
+    children: [
+      FutureBuilder(
+        future: users.doc(documentSnapshot['user']).get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Text(
+              "${snapshot.data!['displayName']} posted on ",
+              style: defaultTextTheme.subtitle2,
+            );
+          }
+          return Text(
+            "Loading...",
+            style: defaultTextTheme.subtitle2,
+          );
+        },
+      ),
+      Text(
+        DateFormat('d LLLL y').add_jm().format(
+              (documentSnapshot['createdAt']).toDate(),
+            ),
+        style: defaultTextTheme.subtitle2,
+      ),
+      Visibility(
+        visible: documentSnapshot['edited'] ? true : false,
+        child: Row(
+          children: [
+            Text(
+              " • Edited",
+              style: defaultTextTheme.subtitle2,
+            ),
+          ],
         ),
       )
     ],
