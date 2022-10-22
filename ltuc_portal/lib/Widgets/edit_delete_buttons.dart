@@ -38,21 +38,33 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           }
           return Visibility(
             visible: showWidget,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    createOrUpdate(context, widget.postDocument);
-                  },
-                  icon: const Icon(Icons.edit),
-                ),
-                IconButton(
-                  onPressed: () {
-                    deletePost(context, widget.postDocument.id);
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
+            child: Container(
+              width: 80,
+              decoration: BoxDecoration(
+                  color: lightBlue, borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      createOrUpdate(context, widget.postDocument);
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 17,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      deletePost(context, widget.postDocument.id);
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      size: 17,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }
