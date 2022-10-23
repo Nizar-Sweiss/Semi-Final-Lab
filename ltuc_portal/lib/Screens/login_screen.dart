@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: Material(
                   elevation: 10,
                   borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -110,16 +110,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Row(children: const [
+                Expanded(
+                    child: Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                )),
+                Text("OR"),
+                Expanded(
+                    child: Divider(
+                  thickness: 1,
+                  color: Colors.black,
+                )),
+              ]),
+              GoogleButton(
+                onPressed: () {
+                  AuthService().signInWithGoogle();
+                },
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 8,
+                alignment: WrapAlignment.spaceEvenly,
                 children: [
-                  DefaultChipLogIn(
-                    key: const Key("test_chip"),
-                    email: "test@test.com",
-                    pass: "test1234",
-                    emailController: emailController,
-                    passwordController: passwordController,
-                  ),
                   DefaultChipLogIn(
                     key: const Key("clear_chip"),
                     email: "",
@@ -128,30 +141,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     passwordController: passwordController,
                     chipLabel: "Clear",
                   ),
-                ],
-              ),
-              Row(
-                children: const [
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      thickness: 1,
-                    ),
+                  DefaultChipLogIn(
+                    key: const Key("test_chip"),
+                    email: "test@test.com",
+                    pass: "test1234",
+                    emailController: emailController,
+                    passwordController: passwordController,
                   ),
-                  Text("OR"),
-                  Expanded(
-                      child: Divider(
-                    thickness: 1,
-                    color: Colors.black,
-                  )),
                 ],
               ),
-              GoogleButton(
-                onPressed: () {
-                  AuthService().signInWithGoogle();
-                },
-              ),
-              const SizedBox(height: 10),
             ],
           ),
         ),
