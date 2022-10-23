@@ -29,15 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: Material(
                   elevation: 10,
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 255, 255, 255),
                       borderRadius: BorderRadius.all(Radius.circular(
                               20.0) //                 <--- border radius here
                           ),
                     ),
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     child: Column(children: [
                       Lottie.network(
                           'https://assets8.lottiefiles.com/packages/lf20_8pL7DHZXvo.json',
@@ -60,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const ForgotPassword(),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: const Text(
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
                               "forgot your password?",
                               style: TextStyle(
                                 fontSize: 14,
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Row(children: [
+              Row(children: const [
                 Expanded(
                     child: Divider(
                   color: Colors.black,
