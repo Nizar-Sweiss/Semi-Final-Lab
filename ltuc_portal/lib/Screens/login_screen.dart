@@ -106,6 +106,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         ],
                       ),
+                      Wrap(
+                        spacing: 8,
+                        alignment: WrapAlignment.spaceEvenly,
+                        children: [
+                          DefaultChipLogIn(
+                            key: const Key("clear_chip"),
+                            email: "",
+                            pass: "",
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            chipLabel: "Clear",
+                          ),
+                          DefaultChipLogIn(
+                            key: const Key("test_chip"),
+                            email: "test@test.com",
+                            pass: "test1234",
+                            emailController: emailController,
+                            passwordController: passwordController,
+                          ),
+                        ],
+                      ),
                     ]),
                   ),
                 ),
@@ -123,32 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.black,
                 )),
               ]),
+              const SizedBox(height: 10),
               GoogleButton(
                 onPressed: () {
                   AuthService().signInWithGoogle();
                 },
-              ),
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 8,
-                alignment: WrapAlignment.spaceEvenly,
-                children: [
-                  DefaultChipLogIn(
-                    key: const Key("clear_chip"),
-                    email: "",
-                    pass: "",
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    chipLabel: "Clear",
-                  ),
-                  DefaultChipLogIn(
-                    key: const Key("test_chip"),
-                    email: "test@test.com",
-                    pass: "test1234",
-                    emailController: emailController,
-                    passwordController: passwordController,
-                  ),
-                ],
               ),
             ],
           ),
