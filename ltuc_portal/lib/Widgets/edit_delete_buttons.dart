@@ -18,7 +18,7 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: users.doc(authUser?.uid).get(),
+      future: users.doc(auth.currentUser?.uid).get(),
       builder: (context, snapshot) {
         bool showWidget = false;
         if (snapshot.hasData) {
@@ -36,10 +36,10 @@ class _EditDeleteButtonsState extends State<EditDeleteButtons> {
           if (role == 2) {
             showWidget = true;
           }
+          debugPrint("role num: $role");
           return Visibility(
             visible: showWidget,
             child: Container(
-              width: 80,
               decoration: BoxDecoration(
                   color: lightBlue, borderRadius: BorderRadius.circular(15)),
               child: Row(

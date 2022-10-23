@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ltuc_portal/utility/style.dart';
 import 'package:ltuc_portal/widgets/widgets.dart';
 
+import '../utility/utility.dart';
+
 class NewsFeedFullScreen extends StatefulWidget {
   final DocumentSnapshot<Object?> snapShot;
   const NewsFeedFullScreen({
@@ -15,33 +17,53 @@ class NewsFeedFullScreen extends StatefulWidget {
 }
 
 class _NewsFeedFullScreenState extends State<NewsFeedFullScreen> {
+  final DataTableSource _data = Marks();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(widget.snapShot['title']),
         elevation: 0,
         backgroundColor: white,
         foregroundColor: black,
       ),
-      body: Stack(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(15),
-            child: ListView(
-              children: [
-                Text(widget.snapShot['title']),
-                postInfo(widget.snapShot),
-                Text(
-                  widget.snapShot['description'],
-                  style: defaultTextTheme.bodyText1,
-                ),
-                Text(widget.snapShot.id)
-              ],
+            child: Center(
+              child: Column(
+                children: [
+                  postInfo(
+                    documentSnapshot: widget.snapShot,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  Text(
+                    widget.snapShot['description'],
+                    style: defaultTextTheme.bodyText1,
+                  ),
+                  Text(widget.snapShot.id)
+                ],
+              ),
             ),
           ),
-          Positioned(
-            bottom: 25,
-            right: 25,
+          // ToDo: TO BE MOVED TO A DIFFERENT SCREEN.
+          SingleChildScrollView(
+            child: PaginatedDataTable(
+              source: _data,
+              columns: const [
+                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Name')),
+                DataColumn(label: Text('Score'))
+              ],
+              columnSpacing: 20,
+              horizontalMargin: MediaQuery.of(context).size.width / 4,
+              rowsPerPage: 6,
+            ),
+          ),
+          Container(
             child: EditDeleteButtons(
               postDocument: widget.snapShot,
             ),
